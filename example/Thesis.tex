@@ -15,13 +15,13 @@
 \documentclass[a4paper, 11pt, oneside]{Thesis}  % Use the "Thesis" style, based on the ECS Thesis style by Steve Gunn
 %
 % Put your figures in this directory
-\graphicspath{Figures/}  % Location of the graphics files (set up for graphics to be in PDF format)
+\graphicspath{{Figures/}}  % Location of the graphics files (set up for graphics to be in PDF format)
 %
 
 % Include any extra LaTeX packages required
-\usepackage[square, numbers, comma, sort&compress]{natbib}  % Use the "Natbib" style for the references in the Bibliography
+
 \usepackage{verbatim}  % Needed for the "comment" environment to make LaTeX comments
-\usepackage{vector}  % Allows "\bvec{}" and "\buvec{}" for "blackboard" style bold vectors in maths
+\usepackage{../template/vector}  % Allows "\bvec{}" and "\buvec{}" for "blackboard" style bold vectors in maths
 \hypersetup{urlcolor=blue, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links.
 
 %% ----------------------------------------------------------------
@@ -165,20 +165,17 @@ $\omega$ & angular frequency & rads$^{-1}$ \\
 
 \appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
 
-\input{Appendices/AppendixA}	% Appendix Title
+\input{./Appendices/AppendixA}	% Appendix Title
 
 %\input{Appendices/AppendixB} % Appendix Title
 
 %\input{Appendices/AppendixC} % Appendix Title
 
 \addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
-\backmatter
+
 
 %% ----------------------------------------------------------------
-\label{Bibliography}
-\lhead{\emph{Bibliography}}  % Change the left side page header to "Bibliography"
-\bibliographystyle{unsrtnat}  % Use the "unsrtnat" BibTeX style for formatting the Bibliography
-\bibliography{Bibliography}  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+\printbibliography
 
 \end{document}  % The End
 %% ----------------------------------------------------------------

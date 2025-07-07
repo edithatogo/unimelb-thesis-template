@@ -14,7 +14,20 @@
 *.lot
 
 # PDF output file
-*.pdf
+# *.pdf # It can be useful to track the PDF in the example, but often not in the main repo.
+# For this template, let's keep the example PDF out of git.
+example/*.pdf
+
+# Editor backup files
+*~
+*.bak
+*.bak0
+
+# Specific error/backup files observed
+*.bcf-SAVE-ERROR
+
+# Output directory from .latexmkrc
+example/out/
 
 # Other
 .DS_Store

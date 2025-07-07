@@ -1,17 +1,119 @@
 \chapter{Introduction}
+\label{ch:introduction}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at pulvinar nisi. Phasellus hendrerit, diam placerat interdum iaculis, mauris justo cursus risus, in viverra purus eros at ligula. Ut metus justo, consequat a tristique posuere, laoreet nec nibh. Etiam et scelerisque mauris. Phasellus vel massa magna. Ut non neque id tortor pharetra bibendum vitae sit amet nisi. Duis nec quam quam, sed euismod justo. Pellentesque eu tellus vitae ante tempus malesuada. Nunc accumsan, quam in congue consequat, lectus lectus dapibus erat, id aliquet urna neque at massa. Nulla facilisi. Morbi ullamcorper eleifend posuere. Donec libero leo, faucibus nec bibendum at, mattis et urna. Proin consectetur, nunc ut imperdiet lobortis, magna neque tincidunt lectus, id iaculis nisi justo id nibh. Pellentesque vel sem in erat vulputate faucibus molestie ut lorem.
+This chapter serves as an introduction to the thesis template and demonstrates various features, including citations, figures, tables, equations, and code listings.
+The structure of this document is based on the University of Melbourne's guidelines for thesis preparation.
+Key works in the field of document preparation include those by Knuth \cite{Knuth1984} and Lamport \cite{Lamport1986}.
+Further resources can be found on the Comprehensive TeX Archive Network (CTAN) \autocite{CTAN}.
 
-\section{A Section}
+\section{Citations and Bibliography}
+\label{sec:citations}
 
-Quisque tristique urna in lorem laoreet at laoreet quam congue. Donec dolor turpis, blandit non imperdiet aliquet, blandit et felis. In lorem nisi, pretium sit amet vestibulum sed, tempus et sem. Proin non ante turpis. Nulla imperdiet fringilla convallis. Vivamus vel bibendum nisl. Pellentesque justo lectus, molestie vel luctus sed, lobortis in libero. Nulla facilisi. Aliquam erat volutpat. Suspendisse vitae nunc nunc. Sed aliquet est suscipit sapien rhoncus non adipiscing nibh consequat. Aliquam metus urna, faucibus eu vulputate non, luctus eu justo.
+This template uses `biblatex` for bibliography management, which offers great flexibility.
+Here are some examples of citation commands:
+\begin{itemize}
+    \item \verb|\cite{key}|: Basic citation, e.g., \cite{Reference1}.
+    \item \verb|\parencite{key}|: Parenthetical citation, e.g., \parencite{Reference2}.
+    \item \verb|\textcite{key}|: Textual citation, e.g., \textcite{Reference3} showed that...
+    \item \verb|\autocite{key}|: Context-aware citation, e.g., \autocite{Hao2023}.
+    \item Multiple citations: \cite{Reference1, Reference2}.
+    \item Citations with page numbers: See \cite[p.~15]{Knuth1984} for details.
+    \item Another example: \textcite[see Chapter~3]{Lamport1986} provides an overview.
+\end{itemize}
+The bibliography is automatically generated at the end of the document. Make sure to run LaTeX, then Biber, then LaTeX twice more for all references to appear correctly. The `.latexmkrc` file in this template automates this process.
 
-\subsection{A Subsection}
+\section{Figures and Subfigures}
+\label{sec:figures}
 
-Donec urna leo, vulputate vitae porta eu, vehicula blandit libero. Phasellus eget massa et leo condimentum mollis. Nullam molestie, justo at pellentesque vulputate, sapien velit ornare diam, nec gravida lacus augue non diam. Integer mattis lacus id libero ultrices sit amet mollis neque molestie. Integer ut leo eget mi volutpat congue. Vivamus sodales, turpis id venenatis placerat, tellus purus adipiscing magna, eu aliquam nibh dolor id nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed cursus convallis quam nec vehicula. Sed vulputate neque eget odio fringilla ac sodales urna feugiat.
+Figures are crucial in a thesis. This template uses the `graphicx` package for including images and `subcaption` for handling subfigures.
+Always use vector graphics (like PDF or EPS) when possible for diagrams and plots to ensure scalability. For photographs, high-resolution raster graphics (PNG, JPG) are appropriate.
+Remember to use `\graphicspath{{Figures/}}` in your main `.tex` file (as done in `example/Thesis.tex`) to specify the directory where your figures are stored.
 
-\section{Another Section}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{unimelb_logo.eps} % Assumes unimelb_logo.eps is in the Figures/ directory
+    \caption{Example of a single figure (University of Melbourne Logo).}
+    \label{fig:unimelb_logo_example}
+\end{figure}
 
-Phasellus nisi quam, volutpat non ullamcorper eget, congue fringilla leo. Cras et erat et nibh placerat commodo id ornare est. Nulla facilisi. Aenean pulvinar scelerisque eros eget interdum. Nunc pulvinar magna ut felis varius in hendrerit dolor accumsan. Nunc pellentesque magna quis magna bibendum non laoreet erat tincidunt. Nulla facilisi.
+Figure \fref{fig:unimelb_logo_example} shows a simple figure. For more complex layouts, subfigures can be used, as shown in Figure \fref{fig:subfigures_example}.
 
-Duis eget massa sem, gravida interdum ipsum. Nulla nunc nisl, hendrerit sit amet commodo vel, varius id tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac dolor est. Suspendisse ultrices tincidunt metus eget accumsan. Nullam facilisis, justo vitae convallis sollicitudin, eros augue malesuada metus, nec sagittis diam nibh ut sapien. Duis blandit lectus vitae lorem aliquam nec euismod nisi volutpat. Vestibulum ornare dictum tortor, at faucibus justo tempor non. Nulla facilisi. Cras non massa nunc, eget euismod purus. Nunc metus ipsum, euismod a consectetur vel, hendrerit nec nunc.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{unimelb_logo.eps} % Placeholder, replace with actual image
+        \caption{First subfigure.}
+        \label{fig:subfigure_a}
+    \end{subfigure}
+    \hfill % adds horizontal space between the subfigures
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{unimelb_logo.eps} % Placeholder, replace with actual image
+        \caption{Second subfigure.}
+        \label{fig:subfigure_b}
+    </end{subfigure}
+    \caption{Example of two subfigures using the `subcaption` package.}
+    \label{fig:subfigures_example}
+\end{figure}
+
+Refer to subfigure \fref{fig:subfigure_a} or \fref{fig:subfigure_b} when discussing specific parts.
+
+\section{Tables}
+\label{sec:tables}
+
+The `booktabs` package is included for creating professional-quality tables. It encourages avoiding vertical rules and using horizontal rules sparingly.
+Table \tref{tab:example_table} provides an illustration.
+
+\begin{table}[htbp]
+    \centering
+    \caption{An example table using `booktabs`.}
+    \label{tab:example_table}
+    \begin{tabular}{@{}llr@{}} % @{} removes extra space at the ends
+        \toprule
+        Header 1 & Header 2 & Header 3 \\
+        \midrule
+        Data A1  & Data A2  & 123.45   \\
+        Data B1  & Data B2  & 67.8     \\
+        Data C1  & Data C2  & 9.0      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Mathematical Equations}
+\label{sec:equations}
+
+The `amsmath` package provides numerous environments for typesetting mathematics.
+Here's a simple numbered equation, Equation \eref{eq:einstein}:
+\begin{equation}
+    E = mc^2
+    \label{eq:einstein}
+\end{equation}
+For a set of aligned equations, use the `align` environment, like in Equations \eref{eq:align_start} and \eref{eq:align_end}:
+\begin{align}
+    a + b &= c \label{eq:align_start} \\
+    x + y + z &= w \label{eq:align_end}
+\end{align}
+The `gather` environment can be used for centering multiple equations:
+\begin{gather}
+    \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2} \label{eq:gaussian_integral} \\
+    \sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6} \label{eq:basel_problem}
+\end{gather}
+Refer to \cref{ch:introduction} for more examples, or a specific \sref{sec:equations}.
+
+\section{Code Listings}
+\label{sec:code}
+
+The `listings` package is used for typesetting code. Styles for Python and Matlab are predefined in `Thesis.cls`.
+Listing \ref{lst:python_example} shows a Python example.
+
+\begin{lstlisting}[language=Python, caption={A simple Python function.}, label={lst:python_example}]
+def greet(name):
+    """This function greets the person passed in as a parameter."""
+    print(f"Hello, {name}!")
+
+# Example usage
+greet("World")
+\end{lstlisting}
+
+This concludes the demonstration of common thesis elements.

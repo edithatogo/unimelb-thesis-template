@@ -17,7 +17,6 @@
 # *.pdf # It can be useful to track the PDF in the example, but often not in the main repo.
 # For this template, let's keep the example PDF out of git.
 example/*.pdf
-example/Figures/*.pdf
 
 # Editor backup files
 *~

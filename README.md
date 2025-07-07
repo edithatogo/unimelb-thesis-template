@@ -1,4 +1,4 @@
-# University of Melbourne Thesis Template (Modernized)
+# University of Melbourne Thesis Template
 
 This is a modernized version of the University of Melbourne PhD thesis template. It has been updated to use modern LaTeX packages and best practices, making it easier to use, customize, and maintain.
 

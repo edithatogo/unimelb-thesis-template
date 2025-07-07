@@ -1,5 +1,6 @@
 %%
 %% Modified by Ricardo Garcia-Rosas to satisfy the rules established by the University of Melbourne's Research Higher Degrees Committee as of 4th of June 2019.
+%% Modernised by Doughnut in 2025 to use modern LaTeX packages and fix compilation issues.
 %% Guidelines can be found at: https://gradresearch.unimelb.edu.au/__data/assets/pdf_file/0004/2027839/Preparation-of-GR-theses-rules.pdf
 %%
 %% Original header:
@@ -208,7 +209,7 @@
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			% Comment \includegraphics line out!!
 			%
-			{\includegraphics[width=0.3\textwidth]{Figures/unimelb_logo.eps} \par}
+			{\includegraphics[width=0.3\textwidth]{example/Figures/unimelb_logo.eps} \par}
 			%
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			%

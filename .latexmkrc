@@ -11,6 +11,7 @@ $pdflatex = 'lualatex %O %S';
 $bibtex = 'biber %O %S';
 
 # Add the template directory to TEXINPUTS
+$ENV{'TEXINPUTS'} = 'template//:' . ($ENV{'TEXINPUTS'} || '');
 
 
 # Add a rule for chktex

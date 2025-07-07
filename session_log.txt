@@ -1,0 +1,59 @@
+--- Session Log ---
+
+Date: Monday, July 7, 2025
+
+Current Git Status:
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 6 and 1 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+nothing to commit, working tree clean
+
+Local Commits (not on origin/main):
+commit b9cc8e9aed34a6252e4eddc4d785465b655ff261
+Author: edithatogo <noreply@github.com>
+Date:   Mon Jul 7 21:27:58 2025 +1200
+
+    Clean: Remove leftover files from compilation errors
+
+commit ad4d6d3a549dd020f4eec3306edabcf92c9312cc
+Author: edithatogo <noreply@github.com>
+Date:   Mon Jul 7 21:26:32 2025 +1200
+
+    Fix: Correct LaTeX compilation errors and update author attribution
+
+commit 3248c64340463705d979752eccb18da57421415c
+Author: edithatogo <d.a.mordaunt@gmail.com>
+Date:   Mon Jul 7 20:32:57 2025 +1200
+
+    Clean: Remove leftover files from compilation errors
+
+commit 38681c9cd89d8f23dfac334be32e6745ab45c323
+Author: edithatogo <d.a.mordaunt@gmail.com>
+Date:   Mon Jul 7 20:31:13 2025 +1200
+
+    Docs: Remove (Modernized) from title
+
+commit 8f027ea674aea4c8c82bb385655c3052fca19d46
+Author: edithatogo <d.a.mordaunt@gmail.com>
+Date:   Mon Jul 7 20:25:55 2025 +1200
+
+    Fix: Final fixes for successful LaTeX compilation
+
+commit fc9558835cbe0bf8739b01fe22afb577c9317f23
+Author: edithatogo <d.a.mordaunt@gmail.com>
+Date:   Mon Jul 7 20:20:50 2025 +1200
+
+    Fix: Correct LaTeX compilation errors and update author attribution
+
+Remote Commit (not on local main):
+commit 7be50f25e51c4ae2084c19e18cd224491c6a45cb
+Author: edithatogo <noreply@github.com>
+Date:   Mon Jul 7 20:57:37 2025 +1200
+
+    Feat: Modernize and debug LaTeX template
+
+Plan:
+1. Rebase local 'main' onto 'origin/main'.
+2. If conflicts arise, resolve them.

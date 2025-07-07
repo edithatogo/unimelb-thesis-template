@@ -11,7 +11,7 @@ $pdflatex = 'lualatex %O %S';
 $bibtex = 'biber %O %S';
 
 # Add the template directory to TEXINPUTS
-
+ensure_path('TEXINPUTS', 'template//');
 
 # Add a rule for chktex
 add_cus_dep('tex', 'chktexrc', 0, 'chktex');

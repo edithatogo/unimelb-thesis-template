@@ -64,8 +64,16 @@
 \onehalfspacing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2.0ex plus0.5ex minus0.2ex}
+
+% \usepackage{fontspec} % Enables use of any OpenType/TrueType fonts installed on the system.
+%                      % Default is Latin Modern. To use a different font, uncomment and use commands like:
+%                      % \setmainfont{Times New Roman} % or another font of your choice
+%                      % \setsansfont{Arial}
+%                      % \setmonofont{Courier New}
+%                      % Ensure the chosen fonts are available on your system (or Overleaf).
 \usepackage{fontspec}
-\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry} % For page layout and margins.
+                                                                    % Current settings are 3cm margins on A4 paper.
 \usepackage{ragged2e}
 \raggedbottom
 
@@ -88,10 +96,16 @@
 			\thispagestyle{empty}
 			\newpage
 			\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
-\usepackage{enumitem}
+\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace} % Standard AMS math packages
+\usepackage{enumitem} % For customizing list environments (itemize, enumerate, etc.)
+
+% \usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex} % Modern bibliography management.
+%                                  % backend=biber is recommended.
+%                                  % style=numeric-comp gives compressed numeric citations (e.g., [1-3]).
+%                                  % Other styles available (e.g., authoryear, apa, mla). See biblatex docs.
+%                                  % Sorting 'none' keeps bibliography in citation order by default for numeric styles.
 \usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex}
-\usepackage{csquotes}
+\usepackage{csquotes} % Provides context-sensitive quotation marks, often recommended with biblatex.
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
@@ -122,7 +136,9 @@
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
 \usepackage{graphicx}
-\usepackage{epstopdf}
+% \usepackage{epstopdf} % lualatex (used here) generally handles EPS conversion automatically or via repstopdf.
+                       % This package is often not strictly needed with lualatex and modern TeX distros.
+                       % Commenting out for now; can be reinstated if EPS handling issues arise.
 \usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{rotating}
@@ -153,15 +169,52 @@
 	keywordstyle=\color{blue},
 	commentstyle=\color[rgb]{0.13,0.55,0.13}\em,
 	stringstyle=\color[rgb]{0.7,0,0} }
+
+% \usepackage[...]{hyperref} % Essential for creating hyperlinks within the document (ToC, citations, URLs)
+%                            % and for PDF metadata. Loaded with common useful options.
+%                            % colorlinks: Colors links instead of using boxes.
+%                            % linkcolor, citecolor, urlcolor: Can be changed (e.g., to 'black' for printing).
+%                            % pdfstartview={FitV}: Fits page width to viewer.
+%                            % unicode: For Unicode characters in bookmarks.
+%                            % breaklinks: Allows long URLs to break across lines.
 \usepackage[pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
 	bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
 	colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
 	pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
-\usepackage{microtype}
-\usepackage{xurl}
+\usepackage{microtype} % Improves typography (e.g., character protrusion, font expansion). Subtle but good.
+\usepackage{xurl}      % For improved line breaking of URLs, works well with hyperref.
 \pdfstringdefDisableCommands{
 	\let\\\space
 }
+
+%----------------------------------------------------------------------------------------
+%	USER-DEFINED METADATA COMMANDS
+%----------------------------------------------------------------------------------------
+% These commands allow the user to set various pieces of metadata for the thesis.
+% Some are used directly in the title page or abstract, others are for PDF metadata.
+% Essential fields like \title, \authors, \degree, \university, \department, \school
+% should be filled in example/Thesis.tex using these commands.
+% Optional fields can be left with their default empty values or the commands
+% to set them can be commented out in example/Thesis.tex if not needed.
+%
+% \supervisor, \examiner: Names for supervisor and examiner (usage may vary by institution).
+% \degree: The full degree name (e.g., Doctor of Philosophy). (Set in example/Thesis.tex)
+% \thesistype: Type of thesis (e.g., PhD Thesis, Master's Thesis). (Set in example/Thesis.tex)
+% \submissiondate: Date of submission (defaults to \today). (Set in example/Thesis.tex)
+% \authors: Author(s) name(s). (Set in example/Thesis.tex)
+% \addresses: Author's address details, often group/department/university.
+%             (Used by \maketitle, typically set by \authors and other metadata in example/Thesis.tex)
+% \university, \UNIVERSITY: University name (normal and all caps). (Set in example/Thesis.tex)
+% \universityurl: URL for the university. (Set in example/Thesis.tex)
+% \school, \SCHOOL: School name. (Set in example/Thesis.tex)
+% \schoolurl: URL for the school. (Set in example/Thesis.tex)
+% \group, \GROUP: Research group name. (Set in example/Thesis.tex)
+% \groupurl: URL for the research group. (Set in example/Thesis.tex)
+% \department, \DEPARTMENT: Department name. (Set in example/Thesis.tex)
+% \departmenturl: URL for the department. (Set in example/Thesis.tex)
+% \subject: Subject of the thesis (used for PDF metadata). (Set in example/Thesis.tex)
+% \keywords: Keywords for the thesis (used for PDF metadata). (Set in example/Thesis.tex)
+%----------------------------------------------------------------------------------------
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
 \newcommand*{\examiner}[1]{\def\examname{#1}}
 \newcommand*{\degree}[1]{\def\degreename{#1}}
@@ -220,7 +273,7 @@
 		\vskip 0\p@
 		\begin{center}
 			\setlength{\parskip}{0pt}
-			{\includegraphics[width=0.3\textwidth]{Figures/unimelb_logo.eps} \par}
+			{\includegraphics[width=0.3\textwidth]{unimelb_logo.eps} \par}
 			\vfill
 			{\huge \bf \@title \par}
 			\vfill

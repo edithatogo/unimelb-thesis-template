@@ -57,17 +57,18 @@
 }
 
 \newcommand\btypeout[1]{\bhrule\typeout{\space #1}\bhrule}
-\def\today{\ifcase\month\or
-		January\or February\or March\or April\or May\or June\or
-		July\or August\or September\or October\or November\or December\fi
-	\space \number\year}
+\usepackage{datetime2}
+\DTMlangsetup[en-US]{abbr=true}
+\def\today{\DTMtoday}
 \usepackage{setspace}
 \onehalfspacing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2.0ex plus0.5ex minus0.2ex}
 \usepackage{fontspec}
 \usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage{ragged2e}
 \raggedbottom
+
 \setlength{\topskip}{1\topskip \@plus 5\p@}
 \doublehyphendemerits=10000       % No consecutive line hyphens.
 \brokenpenalty=10000              % No broken words across columns/pages.
@@ -88,7 +89,9 @@
 			\newpage
 			\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 \usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
+\usepackage{enumitem}
 \usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex}
+\usepackage{csquotes}
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
@@ -100,8 +103,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\usepackage[centerlast,small,sc]{caption}
-\setlength{\captionmargin}{20pt}
+\usepackage{caption}
+\captionsetup{justification=centering}
 \newcommand{\fref}[1]{Figure~\ref{#1}}
 \newcommand{\tref}[1]{Table~\ref{#1}}
 \newcommand{\eref}[1]{Equation~\ref{#1}}
@@ -120,18 +123,33 @@
 \setcounter{dbltopnumber}{9}
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage[scriptsize]{subfigure}
+\usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{rotating}
+\usepackage{placeins}
+\newcommand{\FloatBarrier}{\clearpage}
 \usepackage{listings}
+\usepackage{xcolor}
 
 \lstset{captionpos=b,
 	frame=tb,
-	basicstyle=\scriptsize\ttfamily,
+	basicstyle=\ttfamily\small,
 	showstringspaces=false,
-	keepspaces=true}
+	keepspaces=true,
+	commentstyle=\color{gray}\ttfamily,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	breaklines=true,
+	breakatwhitespace=true,
+	aboveskip=1em,
+	belowskip=1em}
 \lstdefinestyle{matlab} {
 	language=Matlab,
+	keywordstyle=\color{blue},
+	commentstyle=\color[rgb]{0.13,0.55,0.13}\em,
+	stringstyle=\color[rgb]{0.7,0,0} }
+\lstdefinestyle{python} {
+	language=Python,
 	keywordstyle=\color{blue},
 	commentstyle=\color[rgb]{0.13,0.55,0.13}\em,
 	stringstyle=\color[rgb]{0.7,0,0} }
@@ -139,52 +157,50 @@
 	bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
 	colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
 	pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
+\usepackage{microtype}
+\usepackage{xurl}
 \pdfstringdefDisableCommands{
 	\let\\\space
 }
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
 \newcommand*{\examiner}[1]{\def\examname{#1}}
 \newcommand*{\degree}[1]{\def\degreename{#1}}
+\newcommand*{\thesistype}[1]{\def\thesistypename{#1}}
+\newcommand*{\submissiondate}[1]{\def\submissiondatename{#1}}
 \newcommand*{\authors}[1]{\def\authornames{#1}}
 \newcommand*{\addresses}[1]{\def\addressnames{#1}}
 \newcommand*{\university}[1]{\def\univname{#1}}
 \newcommand*{\UNIVERSITY}[1]{\def\UNIVNAME{#1}}
+\newcommand*{\universityurl}[1]{\def\univurl{#1}}
 \newcommand*{\school}[1]{\def\schoolname{#1}}
 \newcommand*{\SCHOOL}[1]{\def\SCHOOLNAME{#1}}
+\newcommand*{\schoolurl}[1]{\def\schoolurlname{#1}}
 \newcommand*{\group}[1]{\def\groupname{#1}}
 \newcommand*{\GROUP}[1]{\def\GROUPNAME{#1}}
+\newcommand*{\groupurl}[1]{\def\groupurlname{#1}}
 \newcommand*{\department}[1]{\def\deptname{#1}}
 \newcommand*{\DEPARTMENT}[1]{\def\DEPTNAME{#1}}
+\newcommand*{\departmenturl}[1]{\def\depturlname{#1}}
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
 \supervisor  {}
 \examiner    {}
 \degree      {Doctor of Philosophy}
+\thesistype  {PhD Thesis}
+\submissiondate{\today}
 \authors     {}
-\university  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-		{The University of Melbourne}}
-	{The University of Melbourne}}
-\UNIVERSITY  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-		{THE UNIVERSITY OF MELBOURNE}}
-	{THE UNIVERSITY OF MELBOURNE}}
-\school  {\texorpdfstring{\href{School Web Site URL Here (include http://)}
-		{School Name}}
-	{School Name}}
-\SCHOOL  {\texorpdfstring{\href{School Web Site URL Here (include http://)}
-		{SCHOOL NAME (IN BLOCK CAPITALS)}}
-	{SCHOOL NAME (IN BLOCK CAPITALS)}}
-\group       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-		{Research Group Name}}
-	{Research Group Name}}
-\GROUP       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-		{RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-	{RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-\department     {\texorpdfstring{\href{Department Web Site URL Here (include http://)}
-		{Department Name}}
-	{Department Name}}
-\DEPARTMENT     {\texorpdfstring{\href{Department Web Site URL Here (include http://)}
-		{DEPARTMENT NAME (IN BLOCK CAPITALS)}}
-	{DEPARTMENT NAME (IN BLOCK CAPITALS)}}
+\university  {The University of Melbourne}
+\UNIVERSITY  {THE UNIVERSITY OF MELBOURNE}
+\universityurl{University Web Site URL Here (include http://)}
+\school  {School Name}
+\SCHOOL  {SCHOOL NAME (IN BLOCK CAPITALS)}
+\schoolurl{School Web Site URL Here (include http://)}
+\group       {Research Group Name}
+\GROUP       {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}
+\groupurl{Research Group Web Site URL Here (include http://)}
+\department     {Department Name}
+\DEPARTMENT     {DEPARTMENT NAME (IN BLOCK CAPITALS)}
+\departmenturl{Department Web Site URL Here (include http://)}
 \addresses   {}
 \subject     {}
 \keywords    {}
@@ -204,14 +220,7 @@
 		\vskip 0\p@
 		\begin{center}
 			\setlength{\parskip}{0pt}
-			%
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-			% Comment \includegraphics line out!!
-			%
 			{\includegraphics[width=0.3\textwidth]{Figures/unimelb_logo.eps} \par}
-			%
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-			%
 			\vfill
 			{\huge \bf \@title \par}
 			\vfill
@@ -220,7 +229,7 @@
 			{\LARGE \authornames \par}
 			\vfill
 			{\large A thesis submitted in total fulfillment for the \par}
-			{\large degree of Doctor of Philosophy \par}
+			{\large degree of \degreename \par}
 			\bigskip
 			\bigskip
 			{\large in the \par}
@@ -230,7 +239,7 @@
 			\bigskip
 			\bigskip
 			\bigskip
-			{\Large \@date \par}
+			{\Large \submissiondatename \par}
 			\bigskip
 		\end{center}
 		\par
@@ -264,7 +273,7 @@
 		{\normalsize \deptname \par}
 		{\normalsize \schoolname \par}
 		\bigskip
-		{\normalsize Doctor of Philosophy\par}
+		{\normalsize \thesistypename\par}
 		\bigskip
 		{\normalsize\bf \@title \par}
 		\medskip
@@ -386,15 +395,7 @@
 	\vfil\null
 	\cleardoublepage
 }
-\renewcommand\backmatter{
-	\if@openright
-		\cleardoublepage
-	\else
-		\clearpage
-	\fi
-	\addtotoc{\bibname}
-	\btypeout{\bibname}
-	\@mainmatterfalse}
+
 \endinput
 %%
 %% End of file `Thesis.cls'.

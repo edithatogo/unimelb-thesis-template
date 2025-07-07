@@ -58,17 +58,26 @@
 }
 
 \newcommand\btypeout[1]{\bhrule\typeout{\space #1}\bhrule}
-\def\today{\ifcase\month\or
-		January\or February\or March\or April\or May\or June\or
-		July\or August\or September\or October\or November\or December\fi
-	\space \number\year}
+\usepackage{datetime2}
+\DTMlangsetup[en-US]{abbr=true}
+\def\today{\DTMtoday}
 \usepackage{setspace}
 \onehalfspacing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2.0ex plus0.5ex minus0.2ex}
+
+% \usepackage{fontspec} % Enables use of any OpenType/TrueType fonts installed on the system.
+%                      % Default is Latin Modern. To use a different font, uncomment and use commands like:
+%                      % \setmainfont{Times New Roman} % or another font of your choice
+%                      % \setsansfont{Arial}
+%                      % \setmonofont{Courier New}
+%                      % Ensure the chosen fonts are available on your system (or Overleaf).
 \usepackage{fontspec}
-\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+\usepackage[a4paper, top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry} % For page layout and margins.
+                                                                    % Current settings are 3cm margins on A4 paper.
+\usepackage{ragged2e}
 \raggedbottom
+
 \setlength{\topskip}{1\topskip \@plus 5\p@}
 \doublehyphendemerits=10000       % No consecutive line hyphens.
 \brokenpenalty=10000              % No broken words across columns/pages.
@@ -88,8 +97,16 @@
 			\thispagestyle{empty}
 			\newpage
 			\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
+\usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace} % Standard AMS math packages
+\usepackage{enumitem} % For customizing list environments (itemize, enumerate, etc.)
+
+% \usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex} % Modern bibliography management.
+%                                  % backend=biber is recommended.
+%                                  % style=numeric-comp gives compressed numeric citations (e.g., [1-3]).
+%                                  % Other styles available (e.g., authoryear, apa, mla). See biblatex docs.
+%                                  % Sorting 'none' keeps bibliography in citation order by default for numeric styles.
 \usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex}
+\usepackage{csquotes} % Provides context-sensitive quotation marks, often recommended with biblatex.
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
@@ -101,8 +118,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\usepackage[centerlast,small,sc]{caption}
-\setlength{\captionmargin}{20pt}
+\usepackage{caption}
+\captionsetup{justification=centering}
 \newcommand{\fref}[1]{Figure~\ref{#1}}
 \newcommand{\tref}[1]{Table~\ref{#1}}
 \newcommand{\eref}[1]{Equation~\ref{#1}}
@@ -120,72 +137,124 @@
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
 \usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage[scriptsize]{subfigure}
+% \usepackage{epstopdf} % lualatex (used here) generally handles EPS conversion automatically or via repstopdf.
+                       % This package is often not strictly needed with lualatex and modern TeX distros.
+                       % Commenting out for now; can be reinstated if EPS handling issues arise.
+\usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{rotating}
+\usepackage{placeins}
+\newcommand{\FloatBarrier}{\clearpage}
 \usepackage{listings}
+\usepackage{xcolor}
 
 \lstset{captionpos=b,
 	frame=tb,
-	basicstyle=\scriptsize\ttfamily,
+	basicstyle=\ttfamily\small,
 	showstringspaces=false,
-	keepspaces=true}
+	keepspaces=true,
+	commentstyle=\color{gray}\ttfamily,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	breaklines=true,
+	breakatwhitespace=true,
+	aboveskip=1em,
+	belowskip=1em}
 \lstdefinestyle{matlab} {
 	language=Matlab,
 	keywordstyle=\color{blue},
 	commentstyle=\color[rgb]{0.13,0.55,0.13}\em,
 	stringstyle=\color[rgb]{0.7,0,0} }
+\lstdefinestyle{python} {
+	language=Python,
+	keywordstyle=\color{blue},
+	commentstyle=\color[rgb]{0.13,0.55,0.13}\em,
+	stringstyle=\color[rgb]{0.7,0,0} }
+
+% \usepackage[...]{hyperref} % Essential for creating hyperlinks within the document (ToC, citations, URLs)
+%                            % and for PDF metadata. Loaded with common useful options.
+%                            % colorlinks: Colors links instead of using boxes.
+%                            % linkcolor, citecolor, urlcolor: Can be changed (e.g., to 'black' for printing).
+%                            % pdfstartview={FitV}: Fits page width to viewer.
+%                            % unicode: For Unicode characters in bookmarks.
+%                            % breaklinks: Allows long URLs to break across lines.
 \usepackage[pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
 	bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
 	colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
 	pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
+\usepackage{microtype} % Improves typography (e.g., character protrusion, font expansion). Subtle but good.
+\usepackage{xurl}      % For improved line breaking of URLs, works well with hyperref.
 \pdfstringdefDisableCommands{
 	\let\\\space
 }
+
+%----------------------------------------------------------------------------------------
+%	USER-DEFINED METADATA COMMANDS
+%----------------------------------------------------------------------------------------
+% These commands allow the user to set various pieces of metadata for the thesis.
+% Some are used directly in the title page or abstract, others are for PDF metadata.
+% Essential fields like \title, \authors, \degree, \university, \department, \school
+% should be filled in example/Thesis.tex using these commands.
+% Optional fields can be left with their default empty values or the commands
+% to set them can be commented out in example/Thesis.tex if not needed.
+%
+% \supervisor, \examiner: Names for supervisor and examiner (usage may vary by institution).
+% \degree: The full degree name (e.g., Doctor of Philosophy). (Set in example/Thesis.tex)
+% \thesistype: Type of thesis (e.g., PhD Thesis, Master's Thesis). (Set in example/Thesis.tex)
+% \submissiondate: Date of submission (defaults to \today). (Set in example/Thesis.tex)
+% \authors: Author(s) name(s). (Set in example/Thesis.tex)
+% \addresses: Author's address details, often group/department/university.
+%             (Used by \maketitle, typically set by \authors and other metadata in example/Thesis.tex)
+% \university, \UNIVERSITY: University name (normal and all caps). (Set in example/Thesis.tex)
+% \universityurl: URL for the university. (Set in example/Thesis.tex)
+% \school, \SCHOOL: School name. (Set in example/Thesis.tex)
+% \schoolurl: URL for the school. (Set in example/Thesis.tex)
+% \group, \GROUP: Research group name. (Set in example/Thesis.tex)
+% \groupurl: URL for the research group. (Set in example/Thesis.tex)
+% \department, \DEPARTMENT: Department name. (Set in example/Thesis.tex)
+% \departmenturl: URL for the department. (Set in example/Thesis.tex)
+% \subject: Subject of the thesis (used for PDF metadata). (Set in example/Thesis.tex)
+% \keywords: Keywords for the thesis (used for PDF metadata). (Set in example/Thesis.tex)
+%----------------------------------------------------------------------------------------
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
 \newcommand*{\examiner}[1]{\def\examname{#1}}
 \newcommand*{\degree}[1]{\def\degreename{#1}}
+\newcommand*{\thesistype}[1]{\def\thesistypename{#1}}
+\newcommand*{\submissiondate}[1]{\def\submissiondatename{#1}}
 \newcommand*{\authors}[1]{\def\authornames{#1}}
 \newcommand*{\addresses}[1]{\def\addressnames{#1}}
 \newcommand*{\university}[1]{\def\univname{#1}}
 \newcommand*{\UNIVERSITY}[1]{\def\UNIVNAME{#1}}
+\newcommand*{\universityurl}[1]{\def\univurl{#1}}
 \newcommand*{\school}[1]{\def\schoolname{#1}}
 \newcommand*{\SCHOOL}[1]{\def\SCHOOLNAME{#1}}
+\newcommand*{\schoolurl}[1]{\def\schoolurlname{#1}}
 \newcommand*{\group}[1]{\def\groupname{#1}}
 \newcommand*{\GROUP}[1]{\def\GROUPNAME{#1}}
+\newcommand*{\groupurl}[1]{\def\groupurlname{#1}}
 \newcommand*{\department}[1]{\def\deptname{#1}}
 \newcommand*{\DEPARTMENT}[1]{\def\DEPTNAME{#1}}
+\newcommand*{\departmenturl}[1]{\def\depturlname{#1}}
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
 \supervisor  {}
 \examiner    {}
 \degree      {Doctor of Philosophy}
+\thesistype  {PhD Thesis}
+\submissiondate{\today}
 \authors     {}
-\university  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-		{The University of Melbourne}}
-	{The University of Melbourne}}
-\UNIVERSITY  {\texorpdfstring{\href{University Web Site URL Here (include http://)}
-		{THE UNIVERSITY OF MELBOURNE}}
-	{THE UNIVERSITY OF MELBOURNE}}
-\school  {\texorpdfstring{\href{School Web Site URL Here (include http://)}
-		{School Name}}
-	{School Name}}
-\SCHOOL  {\texorpdfstring{\href{School Web Site URL Here (include http://)}
-		{SCHOOL NAME (IN BLOCK CAPITALS)}}
-	{SCHOOL NAME (IN BLOCK CAPITALS)}}
-\group       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-		{Research Group Name}}
-	{Research Group Name}}
-\GROUP       {\texorpdfstring{\href{Research Group Web Site URL Here (include http://)}
-		{RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-	{RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-\department     {\texorpdfstring{\href{Department Web Site URL Here (include http://)}
-		{Department Name}}
-	{Department Name}}
-\DEPARTMENT     {\texorpdfstring{\href{Department Web Site URL Here (include http://)}
-		{DEPARTMENT NAME (IN BLOCK CAPITALS)}}
-	{DEPARTMENT NAME (IN BLOCK CAPITALS)}}
+\university  {The University of Melbourne}
+\UNIVERSITY  {THE UNIVERSITY OF MELBOURNE}
+\universityurl{University Web Site URL Here (include http://)}
+\school  {School Name}
+\SCHOOL  {SCHOOL NAME (IN BLOCK CAPITALS)}
+\schoolurl{School Web Site URL Here (include http://)}
+\group       {Research Group Name}
+\GROUP       {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}
+\groupurl{Research Group Web Site URL Here (include http://)}
+\department     {Department Name}
+\DEPARTMENT     {DEPARTMENT NAME (IN BLOCK CAPITALS)}
+\departmenturl{Department Web Site URL Here (include http://)}
 \addresses   {}
 \subject     {}
 \keywords    {}
@@ -205,14 +274,18 @@
 		\vskip 0\p@
 		\begin{center}
 			\setlength{\parskip}{0pt}
+<<<<<<< HEAD
 			%
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			% Comment \includegraphics line out!!
 			%
-			{\includegraphics[width=0.3\textwidth]{example/Figures/unimelb_logo.eps} \par}
+			{\includegraphics[width=0.3	 extwidth]{example/Figures/unimelb_logo.eps} \par}
 			%
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			%
+=======
+			{\includegraphics[width=0.3\textwidth]{unimelb_logo.eps} \par}
+>>>>>>> origin/feature/modernize-template
 			\vfill
 			{\huge \bf \@title \par}
 			\vfill
@@ -221,7 +294,7 @@
 			{\LARGE \authornames \par}
 			\vfill
 			{\large A thesis submitted in total fulfillment for the \par}
-			{\large degree of Doctor of Philosophy \par}
+			{\large degree of \degreename \par}
 			\bigskip
 			\bigskip
 			{\large in the \par}
@@ -231,7 +304,7 @@
 			\bigskip
 			\bigskip
 			\bigskip
-			{\Large \@date \par}
+			{\Large \submissiondatename \par}
 			\bigskip
 		\end{center}
 		\par
@@ -265,7 +338,7 @@
 		{\normalsize \deptname \par}
 		{\normalsize \schoolname \par}
 		\bigskip
-		{\normalsize Doctor of Philosophy\par}
+		{\normalsize \thesistypename\par}
 		\bigskip
 		{\normalsize\bf \@title \par}
 		\medskip
@@ -387,15 +460,7 @@
 	\vfil\null
 	\cleardoublepage
 }
-\renewcommand\backmatter{
-	\if@openright
-		\cleardoublepage
-	\else
-		\clearpage
-	\fi
-	\addtotoc{\bibname}
-	\btypeout{\bibname}
-	\@mainmatterfalse}
+
 \endinput
 %%
 %% End of file `Thesis.cls'.

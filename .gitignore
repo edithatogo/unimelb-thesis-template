@@ -31,3 +31,4 @@ example/out/
 
 # Other
 .DS_Store
+session_log.txt

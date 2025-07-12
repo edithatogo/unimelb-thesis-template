@@ -1,8 +1,0 @@
-# Session Log
-
-## 2024-07-25
-
-- Created a new development branch named `dev`.
-- Reviewed the `todo.md` file.
-- Downloaded the University of Melbourne SVG logo file from the provided URL and added it to the `example/Figures/unimelb_logo/` directory.
-- Updated the `CHANGELOG.md` file to reflect the changes made to the project.

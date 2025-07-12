@@ -183,6 +183,10 @@
 	colorlinks,linkcolor={blue},citecolor={blue},urlcolor={red},
 	pdfstartview={FitV},unicode,breaklinks=true]{hyperref}
 \usepackage{microtype} % Improves typography (e.g., character protrusion, font expansion). Subtle but good.
+\usepackage{siunitx}   % For typesetting values with units.
+\usepackage{tikz}      % For creating vector graphics.
+\usepackage[acronym]{glossaries} % For creating glossaries and lists of acronyms.
+\usepackage{makeidx}   % For creating an index.
 \usepackage{xurl}      % For improved line breaking of URLs, works well with hyperref.
 \pdfstringdefDisableCommands{
 	\let\\\space

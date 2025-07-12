@@ -47,6 +47,8 @@
 \begin{document}
 \frontmatter      % Begin Roman style (i, ii, iii, iv...) page numbering
 
+\makeindex
+
 \maketitle
 %% ----------------------------------------------------------------
 
@@ -73,6 +75,12 @@
 % Preface Page required for the Thesis, your institution may give you a different text to place here
 \input{example/Preamble/Preface.tex}
 \clearpage  % Preface ended, now start a new page
+
+%% ----------------------------------------------------------------
+% Glossary Page
+\input{example/Preamble/Glossary.tex}
+\printglossaries
+\clearpage
 
 %% ----------------------------------------------------------------
 % The Acknowledgements page, for thanking everyone

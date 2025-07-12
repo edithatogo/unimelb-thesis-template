@@ -13,18 +13,13 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
+      - name: Install latexmk
+        run: sudo apt-get update && sudo apt-get install -y latexmk
+
       - name: Set up TeX Live
-        uses: teatimeguest/setup-texlive-action@v3
+        uses: xu-cheng/texlive-action@v2
         with:
-          packages: >- # Ensure all necessary packages are listed
-            scheme-full
-            biber
-            latexmk
-          # Add any specific CTAN packages not in scheme-full if needed by the template, e.g.:
-          # texlive_packages: >
-          #   package1
-          #   package2
-          update-all-packages: true # Recommended to keep packages up-to-date
+          packages: scheme-full biber
 
       - name: Compile LaTeX document
         run: |

@@ -4,6 +4,7 @@
 This chapter serves as an introduction to the thesis template and demonstrates various features, including citations, figures, tables, equations, and code listings.
 The structure of this document is based on the University of Melbourne's guidelines for thesis preparation.
 Key works in the field of document preparation include those by Knuth \cite{Knuth1984} and Lamport \cite{Lamport1986}.
+We use \gls{latex} to typeset this document. We also use a \gls{svm}.
 Further resources can be found on the Comprehensive TeX Archive Network (CTAN) \autocite{CTAN}.
 
 \section{Citations and Bibliography}
@@ -31,12 +32,16 @@ Remember to use `\graphicspath{{Figures/}}` in your main `.tex` file (as done in
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{unimelb_logo.eps} % Assumes unimelb_logo.eps is in the Figures/ directory
-    \caption{Example of a single figure (University of Melbourne Logo).}
-    \label{fig:unimelb_logo_example}
+    \begin{tikzpicture}
+        \draw[thick,->] (0,0) -- (4,0) node[anchor=north west] {x};
+        \draw[thick,->] (0,0) -- (0,4) node[anchor=south east] {y};
+        \draw[scale=0.5,domain=-2:2,smooth,variable=\x,blue] plot ({\x},{\x*\x});
+    \end{tikzpicture}
+    \caption{Example of a figure created with `tikz`.}
+    \label{fig:tikz_example}
 \end{figure}
 
-Figure \fref{fig:unimelb_logo_example} shows a simple figure. For more complex layouts, subfigures can be used, as shown in Figure \fref{fig:subfigures_example}.
+Figure \fref{fig:tikz_example} shows a simple figure. For more complex layouts, subfigures can be used, as shown in Figure \fref{fig:subfigures_example}.
 
 \begin{figure}[htbp]
     \centering
@@ -67,15 +72,15 @@ Table \tref{tab:example_table} provides an illustration.
 
 \begin{table}[htbp]
     \centering
-    \caption{An example table using `booktabs`.}
-    \label{tab:example_table}
-    \begin{tabular}{@{}llr@{}} % @{} removes extra space at the ends
+    \caption{An example table using `booktabs` and `siunitx`.}
+    \label{tab:example_table_siunitx}
+    \begin{tabular}{lS[table-format=3.2]S[table-format=2.1]}
         \toprule
-        Header 1 & Header 2 & Header 3 \\
+        {Item} & {Value 1 (\si{\volt})} & {Value 2 (\si{\ampere})} \\
         \midrule
-        Data A1  & Data A2  & 123.45   \\
-        Data B1  & Data B2  & 67.8     \\
-        Data C1  & Data C2  & 9.0      \\
+        Measurement 1 & 123.45 & 67.8 \\
+        Measurement 2 & 1.23 & 45.6 \\
+        Measurement 3 & 9.0 & 7.8 \\
         \bottomrule
     \end{tabular}
 \end{table}
